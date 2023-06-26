@@ -32,6 +32,7 @@ export default function Register() {
         >
           <Form.Item
             label="Register As"
+            name="userType"
             rules={[
               {
                 required: true,
