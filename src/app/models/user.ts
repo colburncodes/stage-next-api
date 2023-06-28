@@ -2,6 +2,11 @@ import { Schema, model, models } from "mongoose";
 
 const userSchema = new Schema(
   {
+    userType: {
+      type: String,
+      required: true,
+      default: "developer",
+    },
     name: {
       type: String,
       required: true,
@@ -26,10 +31,4 @@ const userSchema = new Schema(
   }
 );
 
-// delete old model
-// const userModel = mongoose.model("user");
-// mongoose.deleteModel(userModel.modelName);
-
-// // create new model
-// module.exports = mongoose.model("users", userSchema)
 export const User = models.User || model("User", userSchema);

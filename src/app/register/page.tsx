@@ -1,12 +1,18 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, message } from "antd";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 export default function Register() {
-  const onFinish = (values: any) => {
-    console.log("Finish:", values);
+  const onFinish = async (values: any) => {
+    try {
+      const response = await axios.post("/api/users/register", values);
+      message.success(response.data.message);
+    } catch (error: any) {
+      message.error(error.response.data.message || "Something went wrong");
+    }
   };
 
   return (
@@ -16,7 +22,6 @@ export default function Register() {
         <hr />
         <Form
           className="flex flex-col gap-3"
-          name="login"
           layout="vertical"
           style={{
             display: "grid",
