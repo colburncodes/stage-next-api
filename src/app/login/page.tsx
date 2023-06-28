@@ -36,7 +36,7 @@ export default function Login() {
           }}
           onFinish={onFinish}
         >
-          <Form.Item
+          {/* <Form.Item
             label="Login As"
             name="userType"
             rules={[
@@ -50,7 +50,7 @@ export default function Login() {
               <Radio value="employer"> Employer </Radio>
               <Radio value="developer"> Developer </Radio>
             </Radio.Group>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             label="Email"
             name="email"
