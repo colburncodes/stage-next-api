@@ -5,23 +5,29 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Radio, message } from "antd";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { SetLoading } from "@/redux/loaderSlice";
 
 export default function Login() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const onFinish = async (values: any) => {
     try {
+      dispatch(SetLoading(true));
       const response = await axios.post("/api/users/login", values);
       message.success(response.data.message);
       router.push("/");
     } catch (error: any) {
       message.error(error.response.data.message || "Something went wrong!");
+    } finally {
+      dispatch(SetLoading(false));
     }
   };
 
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
       <div className="card p-3 w-450">
-        <h1 className="text-xl">DevPortal - Login</h1>
+        <h1 className="text-xl">DEVSYNC - Login</h1>
         <hr />
         <Form
           className="flex flex-col gap-3"
@@ -36,21 +42,6 @@ export default function Login() {
           }}
           onFinish={onFinish}
         >
-          {/* <Form.Item
-            label="Login As"
-            name="userType"
-            rules={[
-              {
-                required: true,
-                message: "Please register as Employer or Developer",
-              },
-            ]}
-          >
-            <Radio.Group>
-              <Radio value="employer"> Employer </Radio>
-              <Radio value="developer"> Developer </Radio>
-            </Radio.Group>
-          </Form.Item> */}
           <Form.Item
             label="Email"
             name="email"

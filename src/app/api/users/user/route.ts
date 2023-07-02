@@ -1,6 +1,8 @@
 import { User } from "@/app/models/user";
+import { ConnectDB } from "@/config/db";
 import { validateToken } from "@/utility/validateToken";
 import { NextRequest, NextResponse } from "next/server";
+ConnectDB();
 
 export async function GET(req: NextRequest) {
   try {

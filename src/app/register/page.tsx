@@ -4,21 +4,27 @@ import Link from "next/link";
 import { Button, Form, Input, Radio, message } from "antd";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { SetLoading } from "@/redux/loaderSlice";
 
 export default function Register() {
+  const dispatch = useDispatch();
   const onFinish = async (values: any) => {
     try {
+      dispatch(SetLoading(true));
       const response = await axios.post("/api/users/register", values);
       message.success(response.data.message);
     } catch (error: any) {
       message.error(error.response.data.message || "Something went wrong");
+    } finally {
+      dispatch(SetLoading(false));
     }
   };
 
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
       <div className="card p-3 w-450">
-        <h1 className="text-xl">DevPortal - Register</h1>
+        <h1 className="text-xl">DEVSYNC - Register</h1>
         <hr />
         <Form
           className="flex flex-col gap-3"
