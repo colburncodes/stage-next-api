@@ -7,12 +7,14 @@ import axios from "axios";
 import { SetUser } from "@/redux/usersSlice";
 import Loader from "@/components/Loader";
 import { SetLoading } from "@/redux/loaderSlice";
+import { useRouter } from "next/navigation";
 
 export default function LayoutProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const { user } = useSelector((state: any) => state.users);
   const { isLoading } = useSelector((state: any) => state.loader);
   const dispatch = useDispatch();
@@ -51,6 +53,19 @@ export default function LayoutProvider({
       dispatch(SetLoading(true));
       const response = await axios.get("api/users/user");
       dispatch(SetUser(response.data.data));
+    } catch (error: any) {
+      message.error(error.response.data.message);
+    } finally {
+      dispatch(SetLoading(false));
+    }
+  };
+
+  const onLogout = async () => {
+    try {
+      dispatch(SetLoading(true));
+      await axios.post("api/users/logout");
+      dispatch(SetUser({}));
+      router.push("/login");
     } catch (error: any) {
       message.error(error.response.data.message);
     } finally {
@@ -146,7 +161,10 @@ export default function LayoutProvider({
                   )}
 
                   <span>
-                    <i className="ri-logout-box-r-line"></i>
+                    <i
+                      onClick={() => onLogout()}
+                      className="ri-logout-box-r-line"
+                    ></i>
                   </span>
                 </div>
               </div>

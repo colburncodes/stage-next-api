@@ -87,3 +87,7 @@
     justify-content: center;
     align-items: center;
   }
+
+  .ri-logout-box-r-line {
+    cursor: pointer;
+  }
