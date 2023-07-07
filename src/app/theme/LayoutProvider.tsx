@@ -74,7 +74,7 @@ export default function LayoutProvider({
   };
 
   useEffect(() => {
-    if (pathname !== "/login" && pathname !== "/register") {
+    if (pathname !== "/login" && pathname !== "/register" && !user) {
       getUser();
     }
   }, [pathname]);
@@ -100,76 +100,86 @@ export default function LayoutProvider({
           {pathname === "/login" || pathname === "/register" ? (
             <body>{children}</body>
           ) : (
-            <div className="layout__parent">
-              <div className="sidebar">
-                <div className="logo">
-                  {showSidebar && <h1>DEVSYNC</h1>}
-                  {showSidebar && <i className="ri-loop-right-line"></i>}
-                  {!showSidebar && (
-                    <i
-                      className="ri-menu-line"
-                      onClick={() => setShowSidebar(!showSidebar)}
-                    ></i>
-                  )}
+            user && (
+              <div className="layout__parent">
+                <div className="sidebar">
+                  <div className="logo">
+                    {showSidebar && <h1>DEVSYNC</h1>}
+                    {showSidebar && <i className="ri-loop-right-line"></i>}
+                    {!showSidebar && (
+                      <i
+                        className="ri-menu-line"
+                        onClick={() => setShowSidebar(!showSidebar)}
+                      ></i>
+                    )}
 
-                  {showSidebar && (
-                    <i
-                      className="ri-close-line"
-                      onClick={() => setShowSidebar(!showSidebar)}
-                    ></i>
-                  )}
-                </div>
-                <div className="menu__items">
-                  {menuItems.map((item, idx) => {
-                    const isActive = pathname === item.path;
-                    return (
-                      <div
-                        key={idx}
-                        className={`menu__item ${
-                          isActive ? "active-menu-item" : ""
-                        }`}
-                      >
-                        <i className={item.icon}></i>
-                        <span>{showSidebar && item.name}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="user-info">
-                  {showSidebar && (
-                    <div>
-                      <Avatar.Group
-                        maxCount={2}
-                        maxPopoverTrigger="click"
-                        size="default"
-                        maxStyle={{
-                          color: "#f56a00",
-                          backgroundColor: "#fde3cf",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Avatar
-                          style={{ backgroundColor: "#f56a00" }}
-                          shape="circle"
-                          alt="Avatar"
+                    {showSidebar && (
+                      <i
+                        className="ri-close-line"
+                        onClick={() => setShowSidebar(!showSidebar)}
+                      ></i>
+                    )}
+                  </div>
+                  <div className="menu__items">
+                    {menuItems.map((item, idx) => {
+                      const isActive = pathname === item.path;
+                      return (
+                        <div
+                          key={idx}
+                          className={`menu__item ${
+                            isActive ? "active-menu-item" : ""
+                          }`}
+                          onClick={() => router.push(item.path)}
+                          style={{
+                            justifyContent: showSidebar
+                              ? "flex-start"
+                              : "center",
+                          }}
                         >
-                          {user?.name}
-                        </Avatar>
-                      </Avatar.Group>
-                    </div>
-                  )}
+                          <i className={item.icon}></i>
+                          <span>{showSidebar && item.name}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
 
-                  <span>
-                    <i
-                      onClick={() => onLogout()}
-                      className="ri-logout-box-r-line"
-                    ></i>
-                  </span>
+                  <div className="user-info">
+                    {showSidebar && (
+                      <div>
+                        <Avatar.Group
+                          maxCount={2}
+                          maxPopoverTrigger="click"
+                          size="default"
+                          maxStyle={{
+                            color: "#f56a00",
+                            backgroundColor: "#fde3cf",
+                            cursor: "pointer",
+                          }}
+                        >
+                          <Avatar
+                            className="avatar"
+                            style={{ backgroundColor: "#f56a00" }}
+                            shape="circle"
+                            alt="Avatar"
+                            onClick={() => router.push("/profile")}
+                          >
+                            {user?.name}
+                          </Avatar>
+                        </Avatar.Group>
+                      </div>
+                    )}
+
+                    <span>
+                      <i
+                        onClick={() => onLogout()}
+                        className="ri-logout-box-r-line"
+                      ></i>
+                    </span>
+                  </div>
                 </div>
+                <div className="body">{children}</div>
               </div>
-              <div className="body">{children}</div>
-            </div>
+            )
           )}
         </ConfigProvider>
       </body>

@@ -13,6 +13,7 @@ export default function Register() {
     try {
       dispatch(SetLoading(true));
       const response = await axios.post("/api/users/register", values);
+      console.log(values);
       message.success(response.data.message);
     } catch (error: any) {
       message.error(error.response.data.message || "Something went wrong");

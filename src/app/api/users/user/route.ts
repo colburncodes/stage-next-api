@@ -19,3 +19,26 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const userId = await validateToken(req);
+    const requestBody = await req.json();
+
+    const user = await User.findByIdAndUpdate(userId, requestBody, {
+      new: true,
+    }).select("-password");
+
+    if (!user) {
+      throw new Error("No user found");
+    }
+
+    return NextResponse.json({
+      message: "User updated successfully",
+      data: user,
+    });
+  } catch (error: any) {
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}
+
