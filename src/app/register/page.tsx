@@ -13,8 +13,12 @@ export default function Register() {
     try {
       dispatch(SetLoading(true));
       const response = await axios.post("/api/users/register", values);
-      console.log(values);
       message.success(response.data.message);
+
+      await axios.post("api/email", {
+        method: "POST",
+        body: values, //JSON.stringify({ email: values.email }),
+      });
     } catch (error: any) {
       message.error(error.response.data.message || "Something went wrong");
     } finally {
