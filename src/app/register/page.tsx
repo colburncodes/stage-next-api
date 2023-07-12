@@ -17,7 +17,7 @@ export default function Register() {
 
       await axios.post("api/email", {
         method: "POST",
-        body: values, //JSON.stringify({ email: values.email }),
+        body: values,
       });
     } catch (error: any) {
       message.error(error.response.data.message || "Something went wrong");
@@ -57,8 +57,14 @@ export default function Register() {
             ]}
           >
             <Radio.Group>
-              <Radio value="employer"> Employer </Radio>
-              <Radio value="developer"> Developer </Radio>
+              <Radio name="employer" value="employer">
+                {" "}
+                Employer{" "}
+              </Radio>
+              <Radio name="developer" value="developer">
+                {" "}
+                Developer{" "}
+              </Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item

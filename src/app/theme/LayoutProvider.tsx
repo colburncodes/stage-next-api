@@ -20,7 +20,7 @@ export default function LayoutProvider({
   const dispatch = useDispatch();
   const [showSidebar, setShowSidebar] = useState(true);
   const pathname = usePathname();
-  const menuItems = [
+  const [menuItems, setMenuItems] = useState([
     {
       name: "Home",
       path: "/",
@@ -46,12 +46,20 @@ export default function LayoutProvider({
       path: "/saved",
       icon: "ri-save-line",
     },
-  ];
+  ]);
 
   const getUser = async () => {
     try {
       dispatch(SetLoading(true));
       const response = await axios.get("api/users/user");
+
+      const isEmployer = response.data.data.userType === "employer";
+      if (isEmployer) {
+        const tempMenuItems = menuItems;
+        tempMenuItems[2].name = "Post Jobs";
+        tempMenuItems[2].path = "/jobs";
+        setMenuItems(tempMenuItems);
+      }
       dispatch(SetUser(response.data.data));
     } catch (error: any) {
       message.error(error.response.data.message);

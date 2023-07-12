@@ -8,7 +8,7 @@ ConnectDB();
 export async function POST(req: NextRequest) {
   try {
     const request = await req.json();
-    const { name, email, password } = request;
+    const { name, email, password, userType } = request;
 
     const user = await User.findOne({ email });
 
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     }
 
     return bcrypt.hash(password, 10).then((hash) =>
-      User.create({ name, email, password: hash }).then((user) => {
+      User.create({ name, email, password: hash, userType }).then((user) => {
         return NextResponse.json(
           { message: "User created successfully" },
           { status: 201 }
