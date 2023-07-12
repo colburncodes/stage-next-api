@@ -1,7 +1,10 @@
-export default function Home() {
+export default async function Home() {
   return (
     <main>
-      <h1>Dev Portal</h1>
+      <div>
+        <h1>DEVSYNC</h1>
+      </div>
+      <p>Authorized User </p>
     </main>
   );
 }

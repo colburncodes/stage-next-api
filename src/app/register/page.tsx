@@ -1,22 +1,38 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, message } from "antd";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { SetLoading } from "@/redux/loaderSlice";
 
 export default function Register() {
-  const onFinish = (values: any) => {
-    console.log("Finish:", values);
+  const dispatch = useDispatch();
+  const onFinish = async (values: any) => {
+    try {
+      dispatch(SetLoading(true));
+      const response = await axios.post("/api/users/register", values);
+      message.success(response.data.message);
+
+      await axios.post("api/email", {
+        method: "POST",
+        body: values,
+      });
+    } catch (error: any) {
+      message.error(error.response.data.message || "Something went wrong");
+    } finally {
+      dispatch(SetLoading(false));
+    }
   };
 
   return (
     <div className="flex justify-center h-screen items-center bg-primary">
       <div className="card p-3 w-450">
-        <h1 className="text-xl">DevPortal - Register</h1>
+        <h1 className="text-xl">DEVSYNC - Register</h1>
         <hr />
         <Form
           className="flex flex-col gap-3"
-          name="login"
           layout="vertical"
           style={{
             display: "grid",
@@ -41,8 +57,14 @@ export default function Register() {
             ]}
           >
             <Radio.Group>
-              <Radio value="employer"> Employer </Radio>
-              <Radio value="developer"> Developer </Radio>
+              <Radio name="employer" value="employer">
+                {" "}
+                Employer{" "}
+              </Radio>
+              <Radio name="developer" value="developer">
+                {" "}
+                Developer{" "}
+              </Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
