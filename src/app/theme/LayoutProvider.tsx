@@ -15,9 +15,9 @@ export default function LayoutProvider({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { user } = useSelector((state: any) => state.users);
   const { isLoading } = useSelector((state: any) => state.loader);
-  const dispatch = useDispatch();
   const [showSidebar, setShowSidebar] = useState(true);
   const pathname = usePathname();
   const [menuItems, setMenuItems] = useState([
