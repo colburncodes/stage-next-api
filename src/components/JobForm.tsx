@@ -27,7 +27,7 @@ export default function JobForm() {
       </Col>
 
       <Col span={8}>
-        <Form.Item label="Job Type" name="type">
+        <Form.Item label="Job Type" name="jobType">
           <Select defaultValue={"Select"}>
             <Option value="full-time">Full Time</Option>
             <Option value="part-time">Part Time</Option>
@@ -44,7 +44,7 @@ export default function JobForm() {
 
       <Col span={8}>
         <Form.Item label="Experience" name="experience">
-          <Input type="text" />
+          <Input type="number" />
         </Form.Item>
       </Col>
 
@@ -59,13 +59,13 @@ export default function JobForm() {
 
       <Col span={8}>
         <Form.Item label="Salary From Range" name="salaryFrom">
-          <Input type="text" />
+          <Input type="number" />
         </Form.Item>
       </Col>
 
       <Col span={8}>
         <Form.Item label="Salary To Range" name="salaryTo">
-          <Input type="text" />
+          <Input type="number" />
         </Form.Item>
       </Col>
     </Row>
