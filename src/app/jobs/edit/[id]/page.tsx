@@ -1,33 +1,18 @@
 "use client";
 import JobForm from "@/components/JobForm";
 import PageTitle from "@/components/PageTitle";
-import { SetLoading } from "@/redux/loaderSlice";
-import { Button, Form, message } from "antd";
-import axios from "axios";
+import { Button, Form } from "antd";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useDispatch } from "react-redux";
 
-export default function Create() {
-  const dispatch = useDispatch();
+export default function Edit() {
   const router = useRouter();
 
-  const onFinish = async (values: any) => {
-    try {
-      dispatch(SetLoading(true));
-      const response = await axios.post("/api/jobs", values);
-      message.success(response.data.message);
-      router.push("/jobs");
-    } catch (error: any) {
-      message.error(error.response.data.message || "Issue creating job!");
-    } finally {
-      dispatch(SetLoading(false));
-    }
-  };
+  const onFinish = () => {};
   return (
     <div>
       <div className="flex justify-between">
-        <PageTitle title={"Create Job"} />
+        <PageTitle title={"Edit Job"} />
         <Button type="default" onClick={() => router.back()}>
           Back
         </Button>
