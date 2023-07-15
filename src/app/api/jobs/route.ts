@@ -34,3 +34,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+  } catch (error: any) {
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}

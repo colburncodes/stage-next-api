@@ -25,7 +25,7 @@ export default function Edit() {
             Cancel
           </Button>
           <Button type="primary" htmlType="submit">
-            Update Job
+            Save Job
           </Button>
         </div>
       </Form>

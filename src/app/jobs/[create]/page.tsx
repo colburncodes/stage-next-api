@@ -40,7 +40,7 @@ export default function Create() {
             Cancel
           </Button>
           <Button type="primary" htmlType="submit">
-            Post Job
+            Save Job
           </Button>
         </div>
       </Form>
