@@ -88,7 +88,7 @@
     align-items: center;
   }
 
-  .ri-logout-box-r-line, .avatar {
+  .ri-logout-box-r-line, .ri-edit-box-line, .avatar {
     cursor: pointer;
   }
 
