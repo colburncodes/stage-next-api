@@ -17,12 +17,11 @@ export default function Edit() {
     try {
       values._id = jobid;
       dispatch(SetLoading(true));
-      const response = await axios.put("/api/jobs", values);
-      console.log("Response", response);
+      const response = await axios.put(`/api/jobs/${jobid}`, values);
       message.success(response.data.message);
       router.push("/jobs");
     } catch (error: any) {
-      message.error(error.response.data.message || "Issue creating job!");
+      message.error(error.response.data.message || "Issue updating job!");
     } finally {
       dispatch(SetLoading(false));
     }
