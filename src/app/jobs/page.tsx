@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import Table from "antd/es/table";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { SetLoading } from "@/redux/loaderSlice";
 import { Button, message } from "antd";
 import { useDispatch } from "react-redux";
@@ -16,14 +16,14 @@ const getFullDate = (date: string): string => {
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
+  const { jobid } = useParams();
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const getJobs = async () => {
+  const fetchJobs = async () => {
     try {
       dispatch(SetLoading(true));
       const response = await axios.get("/api/jobs");
-      message.success(response.data.message);
       setJobs(response.data.data);
     } catch (error: any) {
       message.error(error.response.message || "Issue processing request");
@@ -32,8 +32,21 @@ export default function Jobs() {
     }
   };
 
+  const handleClickDelete = async (jobId: string) => {
+    try {
+      dispatch(SetLoading(true));
+      const response = await axios.delete(`api/jobs/${jobId}`);
+      message.success(response.data.message);
+      fetchJobs();
+    } catch (error: any) {
+      message.error(error.response.message);
+    } finally {
+      dispatch(SetLoading(false));
+    }
+  };
+
   useEffect(() => {
-    getJobs();
+    fetchJobs();
   }, []);
 
   const columns = [
@@ -42,11 +55,11 @@ export default function Jobs() {
       dataIndex: "title",
       key: "title",
     },
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
-    },
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   key: "description",
+    // },
     {
       title: "Job Type",
       dataIndex: "jobType",
@@ -93,7 +106,10 @@ export default function Jobs() {
               className="ri-edit-box-line"
               onClick={() => router.push(`/jobs/edit/${record._id}`)}
             ></i>
-            <i className="ri-delete-bin-7-line"></i>
+            <i
+              className="ri-delete-bin-7-line"
+              onClick={() => handleClickDelete(record._id)}
+            ></i>
           </div>
         );
       },
