@@ -29,5 +29,6 @@ export function middleware(request: NextRequest) {
 // See "Matching Paths" below to learn more
 // TODO: Modify later to account for Dynamic routes
 export const config = {
-  matcher: ["/", "/login", "/register", "/profile"],
+  matcher: ["/"],
+  //matcher: ["/", "/login", "/register", "/profile"],
 };
