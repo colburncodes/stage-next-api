@@ -16,7 +16,6 @@ const getFullDate = (date: string): string => {
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
-  const { jobid } = useParams();
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -55,11 +54,6 @@ export default function Jobs() {
       dataIndex: "title",
       key: "title",
     },
-    // {
-    //   title: "Description",
-    //   dataIndex: "description",
-    //   key: "description",
-    // },
     {
       title: "Job Type",
       dataIndex: "jobType",
