@@ -6,8 +6,10 @@ ConnectDB();
 
 export async function GET(req: NextRequest) {
   try {
-    // add condition later to list all jobs based on the user
-    const jobs = await Job.find();
+    validateToken(req);
+    const { searchParams } = new URL(req.url);
+    const user = searchParams.get("user");
+    const jobs = await Job.find({ user });
     if (!jobs) {
       throw new Error("No jobs exist!");
     }
