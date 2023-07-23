@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import Table from "antd/es/table";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { SetLoading } from "@/redux/loaderSlice";
 import { Button, message } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const getFullDate = (date: string): string => {
   const dateAndTime = date.split("T");
@@ -16,13 +16,14 @@ const getFullDate = (date: string): string => {
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
+  const { user } = useSelector((state: any) => state.users);
   const router = useRouter();
   const dispatch = useDispatch();
 
   const fetchJobs = async () => {
     try {
       dispatch(SetLoading(true));
-      const response = await axios.get("/api/jobs");
+      const response = await axios.get(`/api/jobs?user=${user._id}`);
       setJobs(response.data.data);
     } catch (error: any) {
       message.error(error.response.message || "Issue processing request");
