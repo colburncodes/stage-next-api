@@ -51,6 +51,9 @@ export default function Jobs() {
 
   const columns = [
     {
+      key: "_id",
+    },
+    {
       title: "Title",
       dataIndex: "title",
       key: "title",
