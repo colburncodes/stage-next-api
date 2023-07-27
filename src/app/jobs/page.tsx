@@ -51,6 +51,9 @@ export default function Jobs() {
 
   const columns = [
     {
+      key: "_id",
+    },
+    {
       title: "Title",
       dataIndex: "title",
       key: "title",
@@ -119,7 +122,11 @@ export default function Jobs() {
           New Job
         </Button>
       </div>
-      <Table columns={columns} dataSource={jobs} />
+      <Table
+        rowKey={(record) => record._id}
+        columns={columns}
+        dataSource={jobs}
+      />
     </div>
   );
 }

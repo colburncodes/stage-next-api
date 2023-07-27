@@ -6,13 +6,18 @@ ConnectDB();
 
 export async function GET(req: NextRequest) {
   try {
+
     validateToken(req);
     const { searchParams } = new URL(req.url);
     const user = searchParams.get("user");
-    const jobs = await Job.find({ user });
-    if (!jobs) {
-      throw new Error("No jobs exist!");
+    const filter: any = {};
+
+    if (user) {
+      filter["user"] = user;
     }
+
+    const jobs = await Job.find(filter);
+
     return NextResponse.json({
       message: "Jobs fetched successfully",
       data: jobs,
