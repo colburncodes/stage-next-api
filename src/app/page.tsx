@@ -3,10 +3,10 @@ import PageTitle from "@/components/PageTitle";
 import { SetLoading } from "@/redux/loaderSlice";
 import { Col, Row, message } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default async function Home() {
+export default function Home() {
   const [jobs, setJobs] = useState([]);
   const dispatch = useDispatch();
 
@@ -29,10 +29,12 @@ export default async function Home() {
   return (
     <div>
       <PageTitle title="Listed Jobs" />
-      <Row gutter={[16, 16]}>
-        {jobs.map((job: any, idx) => (
-          <Col key={idx} span={8}>
-            <h1 className="text-xl">{job.title}</h1>
+      <Row>
+        {jobs.map((job: any) => (
+          <Col key={job._id} span={8}>
+            <h1 className="text-md" style={{ color: "black" }}>
+              {job.title}
+            </h1>
           </Col>
         ))}
       </Row>

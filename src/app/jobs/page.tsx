@@ -122,7 +122,11 @@ export default function Jobs() {
           New Job
         </Button>
       </div>
-      <Table columns={columns} dataSource={jobs} />
+      <Table
+        rowKey={(record) => record._id}
+        columns={columns}
+        dataSource={jobs}
+      />
     </div>
   );
 }
