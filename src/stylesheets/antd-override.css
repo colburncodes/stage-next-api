@@ -4,3 +4,7 @@
   .ant-form-item-label {
     padding: 0px !important;
   }
+
+  .label {
+    color: white
+  }

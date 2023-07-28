@@ -3,12 +3,14 @@ import PageTitle from "@/components/PageTitle";
 import { SetLoading } from "@/redux/loaderSlice";
 import { Badge, Button, Card, Col, Row, Space, message } from "antd";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Home() {
   const [jobs, setJobs] = useState([]);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const fetchJobs = async () => {
     try {
@@ -28,7 +30,7 @@ export default function Home() {
 
   return (
     <div>
-      <PageTitle title="Listed Jobs" />
+      <PageTitle title="Open Positions" />
       <Row gutter={[16, 16]}>
         {jobs.map((job: any) => (
           <Card
@@ -38,27 +40,31 @@ export default function Home() {
             title={job.title}
             style={{ width: 300, margin: "3px" }}
           >
-            <Col span={8} style={{ margin: "3px" }}></Col>
-            {job.description}
-            <p>
-              <Badge.Ribbon text="Hot" color="red">
-                <small style={{ color: "gray" }}>
-                  <b>Pay:</b> {job.salaryFrom} - {job.salaryTo}
-                </small>
-              </Badge.Ribbon>
-            </p>
+            {" "}
+            <Badge.Ribbon text="New" color="yellow">
+              <Col span={8} style={{}}></Col>
+            </Badge.Ribbon>
             <p>
               <small style={{ color: "gray" }}>
-                <b>Job Type:</b> {job.jobType} {job.salaryFrom} - {job.salaryTo}
+                <b>Pay:</b> {job.salaryFrom} - {job.salaryTo}
               </small>
             </p>
             <p>
               <small style={{ color: "gray" }}>
-                <b>Location:</b> {job.location.toLowerCase()}
+                <b>Job Type:</b> {job.jobType}
               </small>
             </p>
-            <Button type="primary">Apply Now</Button>
-            <i className="ri-bookmark-line" style={{ fontSize: 24 }}></i>
+            <p>
+              <small style={{ color: "gray" }}>
+                <b>Work Type:</b> {job.workType.toLowerCase()}
+              </small>
+            </p>
+            <Button
+              onClick={() => router.push(`/jobs/details/${job._id}`)}
+              type="primary"
+            >
+              View Job
+            </Button>
           </Card>
         ))}
       </Row>
