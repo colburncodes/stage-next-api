@@ -30,7 +30,7 @@ export default function Home() {
 
   return (
     <div>
-      <PageTitle title="Listed Jobs" />
+      <PageTitle title="Open Positions" />
       <Row gutter={[16, 16]}>
         {jobs.map((job: any) => (
           <Card
@@ -41,7 +41,7 @@ export default function Home() {
             style={{ width: 300, margin: "3px" }}
           >
             {" "}
-            <Badge.Ribbon text="Hot" color="red">
+            <Badge.Ribbon text="New" color="yellow">
               <Col span={8} style={{}}></Col>
             </Badge.Ribbon>
             <p>
@@ -63,7 +63,7 @@ export default function Home() {
               onClick={() => router.push(`/jobs/details/${job._id}`)}
               type="primary"
             >
-              View Details
+              View Job
             </Button>
           </Card>
         ))}
