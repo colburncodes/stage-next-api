@@ -28,7 +28,9 @@ export default function Details() {
     }
   };
 
-  const onApply = async () => {};
+  const onApply = async () => {
+    alert("Application Submitted!");
+  };
 
   useEffect(() => {
     fetchJob();
@@ -127,7 +129,7 @@ export default function Details() {
               </div>
               <p>{job.user.name}</p>
               <Button
-                onClick={() => {}}
+                onClick={() => onApply()}
                 type="primary"
                 style={{
                   margin: 5,
