@@ -74,7 +74,7 @@ export default function JobForm() {
       {/* Categories */}
       <div className="my-3">
         <h1 className="text-md">Categories</h1>
-        <Form.List name="skills">
+        <Form.List name="categories">
           {(fields, { add, remove }) => (
             <>
               {fields.map(({ key, name, ...restField }) => (

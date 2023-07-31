@@ -34,6 +34,14 @@ const jobSchema = new Schema(
       type: String,
       required: false,
     },
+    skills: {
+      type: [],
+      required: false,
+    },
+    categories: {
+      type: [],
+      required: false,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
