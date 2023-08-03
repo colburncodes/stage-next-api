@@ -59,7 +59,7 @@ export default function LayoutProvider({
         tempMenuItems[2].name = "Post Jobs";
         tempMenuItems[2].path = "/jobs";
         setMenuItems(tempMenuItems);
-      }
+      } 
       dispatch(SetUser(response.data.data));
     } catch (error: any) {
       message.error(error.response.data.message);
