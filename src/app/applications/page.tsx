@@ -19,8 +19,8 @@ export default function Applications() {
   const fetchApplications = async () => {
     try {
       dispatch(SetLoading(true));
-      const response = await axios.get("/api/applications");
-      setApplications(response.data.data);
+      // const response = await axios.get("/api/applications");
+      // setApplications(response.data.data);
     } catch (error: any) {
       message.error(error.response.message || "Issue processing request");
     } finally {
