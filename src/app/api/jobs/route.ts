@@ -42,9 +42,3 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function PUT(req: NextRequest) {
-  try {
-  } catch (error: any) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
-  }
-}

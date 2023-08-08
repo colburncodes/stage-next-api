@@ -16,7 +16,7 @@ export default function LayoutProvider({
 }) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { user } = useSelector((state: any) => state.users);
+  const { user } = useSelector((state: any) => state.selectUser);
   const { isLoading } = useSelector((state: any) => state.loader);
   const [showSidebar, setShowSidebar] = useState(true);
   const pathname = usePathname();
@@ -59,7 +59,7 @@ export default function LayoutProvider({
         tempMenuItems[2].name = "Post Jobs";
         tempMenuItems[2].path = "/jobs";
         setMenuItems(tempMenuItems);
-      } 
+      }
       dispatch(SetUser(response.data.data));
     } catch (error: any) {
       message.error(error.response.data.message);
@@ -72,7 +72,7 @@ export default function LayoutProvider({
     try {
       dispatch(SetLoading(true));
       await axios.post("api/users/logout");
-      dispatch(SetUser({}));
+      dispatch(SetUser(null));
       router.push("/login");
     } catch (error: any) {
       message.error(error.response.data.message);

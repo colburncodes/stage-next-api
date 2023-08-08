@@ -16,7 +16,7 @@ const getFullDate = (date: string): string => {
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
-  const { user } = useSelector((state: any) => state.users);
+  const { user } = useSelector((state: any) => state.selectUser);
   const router = useRouter();
   const dispatch = useDispatch();
 

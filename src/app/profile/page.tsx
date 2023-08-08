@@ -9,7 +9,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Profile() {
-  const { user } = useSelector((state: any) => state.users);
+  const { user } = useSelector((state: any) => state.selectUser);
   const dispatch = useDispatch();
   const onFinish = async (values: any) => {
     try {
